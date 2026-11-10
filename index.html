@@ -58,20 +58,6 @@ video.player {
     display: block; width: 100%; height: auto; aspect-ratio: 16 / 9;
     border: 0; border-radius: 12px; background: #000;
 }
-.gate {
-    position: absolute; inset: 0; border-radius: 12px; overflow: hidden;
-    display: flex; align-items: flex-end; justify-content: center;
-    pointer-events: none;
-}
-.gate img {
-    position: absolute; inset: 0; width: 100%; height: 100%;
-    object-fit: cover; filter: blur(2px) brightness(0.9);
-}
-.gate span {
-    position: relative; margin-bottom: 14px;
-    background: rgba(30, 20, 12, 0.72); color: #fff;
-    padding: 8px 14px; border-radius: 999px; font-size: 14px;
-}
 .facts { margin: 12px 0 0; border-top: 1px solid var(--line); }
 .facts div { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; }
 .facts dt { font-weight: 600; }
@@ -112,8 +98,7 @@ footer { margin-top: 24px; font-size: 13.5px; color: rgba(45,36,24,.6); }
     <div class="video-body">
         <div class="video-photo"><img src="co23-product.jpg" alt="חנוכיית מטר מוזהבת מורכבת עם שלט מגנט חנוכה שמח"></div>
         <div class="video-frame">
-            <video class="player" controls preload="none" playsinline poster="co23.jpg" src="co23.mp4" aria-label="נגן: חנוכיית מטר מוזהבת"></video>
-            <div class="gate"><img src="co23.jpg" alt=""><span>הסרטון נטען, עוד כמה שניות...</span></div>
+            <video class="player" controls preload="metadata" playsinline poster="co23.jpg" src="co23.mp4" aria-label="נגן: חנוכיית מטר מוזהבת"></video>
         </div>
     </div>
     <dl class="facts">
@@ -129,8 +114,7 @@ footer { margin-top: 24px; font-size: 13.5px; color: rgba(45,36,24,.6); }
     <div class="video-body">
         <div class="video-photo"><img src="co03-product.jpg" alt="חנוכייה 1.8 מטר כסופה מורכבת"></div>
         <div class="video-frame">
-            <video class="player" controls preload="none" playsinline poster="co03.jpg" src="co03.mp4" aria-label="נגן: חנוכייה 1.8 מטר כסופה"></video>
-            <div class="gate"><img src="co03.jpg" alt=""><span>הסרטון נטען, עוד כמה שניות...</span></div>
+            <video class="player" controls preload="metadata" playsinline poster="co03.jpg" src="co03.mp4" aria-label="נגן: חנוכייה 1.8 מטר כסופה"></video>
         </div>
     </div>
     <dl class="facts">
@@ -146,8 +130,7 @@ footer { margin-top: 24px; font-size: 13.5px; color: rgba(45,36,24,.6); }
     <div class="video-body">
         <div class="video-photo"><img src="co22-product.jpg" alt="חנוכייה 1.8 מטר מוזהבת מורכבת עם שלט"></div>
         <div class="video-frame">
-            <video class="player" controls preload="none" playsinline poster="co22.jpg" src="co22.mp4" aria-label="נגן: חנוכייה 1.8 מטר מוזהבת"></video>
-            <div class="gate"><img src="co22.jpg" alt=""><span>הסרטון נטען, עוד כמה שניות...</span></div>
+            <video class="player" controls preload="metadata" playsinline poster="co22.jpg" src="co22.mp4" aria-label="נגן: חנוכייה 1.8 מטר מוזהבת"></video>
         </div>
     </div>
     <dl class="facts">
@@ -165,8 +148,7 @@ footer { margin-top: 24px; font-size: 13.5px; color: rgba(45,36,24,.6); }
     <div class="video-body">
         <div class="video-photo"><img src="co11-product.jpg" alt="חנוכייה עם ערכת חשמל ולד מורכבת ומוארת"></div>
         <div class="video-frame">
-            <video class="player" controls preload="none" playsinline poster="co11.jpg" src="co11.mp4" aria-label="נגן: ערכת חשמל ולד דו צדדי"></video>
-            <div class="gate"><img src="co11.jpg" alt=""><span>הסרטון נטען, עוד כמה שניות...</span></div>
+            <video class="player" controls preload="metadata" playsinline poster="co11.jpg" src="co11.mp4" aria-label="נגן: ערכת חשמל ולד דו צדדי"></video>
         </div>
     </div>
     <dl class="facts">
@@ -186,31 +168,5 @@ footer { margin-top: 24px; font-size: 13.5px; color: rgba(45,36,24,.6); }
 
 </div>
 
-<script>
-(function () {
-    document.querySelectorAll('.video-frame').forEach(function (frame) {
-        var video = frame.querySelector('video');
-        var gate = frame.querySelector('.gate');
-        if (!video || !gate) return;
-        function hideIfReady() {
-            if (video.readyState >= 3) {
-                gate.style.display = 'none';
-                return true;
-            }
-            return false;
-        }
-        ['canplay', 'loadeddata', 'canplaythrough'].forEach(function (ev) {
-            video.addEventListener(ev, hideIfReady);
-        });
-        video.addEventListener('error', function () {
-            gate.querySelector('span').textContent = 'לא ניתן לטעון את הסרטון כרגע';
-        });
-        var timer = setInterval(function () {
-            if (hideIfReady()) clearInterval(timer);
-        }, 500);
-        hideIfReady();
-    });
-})();
-</script>
 </body>
 </html>
